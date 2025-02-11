@@ -1,0 +1,120 @@
+---
+title: "Practical 2"
+format: html
+editor: visual
+---
+
+# Practical 2
+
+## Question 1
+
+### Generating Simulated Data
+
+```{r}
+# Set seed for reproducibility
+set.seed(1)
+
+# Generate x values from 1 to 100
+x <- 1:100
+
+# Generate noise from a normal distribution with mean 0 and standard deviation 0.2
+e <- rnorm(length(x), mean = 0, sd = 0.2)
+
+# Generate y values as a noisy sine wave
+y <- sin(x / 10) + e
+
+# Combine into a data frame
+sim_data <- data.frame(x, y)
+
+# Plot the simulated data
+plot(x, y, main = "Simulated Noisy Sine Wave", xlab = "x", ylab = "y", pch = 16, col = "blue")
+lines(x, sin(x / 10), col = "red", lwd = 2) # True sine function for reference
+
+```
+
+## Question 2
+
+### Implementation of the LOWESS algorithm
+
+```{r}
+customLowess <- function(x, y, f) {
+  n <- length(x)  # Number of data points
+  k <- ceiling(f * n)  # Number of neighbors
+  
+  y_smooth <- numeric(n)  # Placeholder for smoothed values
+  
+  for (i in 1:n) {
+    # Compute distances and select k-nearest neighbors
+    distances <- abs(x - x[i])
+    neighbors <- order(distances)[1:k]
+    
+    # Compute weights using the tricube kernel
+    dmax <- max(distances[neighbors])
+    weights <- (1 - (distances[neighbors] / dmax)^3)^3
+    weights[distances[neighbors] >= dmax] <- 0  # Enforce zero weight outside dmax
+    
+    # Perform weighted least squares regression
+    X <- cbind(1, x[neighbors])  # Design matrix with intercept
+    W <- diag(weights)  # Diagonal weight matrix
+    beta <- solve(t(X) %*% W %*% X) %*% (t(X) %*% W %*% y[neighbors])  # (X'WX)^(-1) X'W y
+    
+    # Compute the smoothed value
+    y_smooth[i] <- beta[1] + beta[2] * x[i]
+  }
+  
+  return(y_smooth)
+}
+
+# Example usage
+set.seed(1)
+x <- seq(1, 100, by = 1)
+y <- sin(x / 10) + rnorm(length(x), mean = 0, sd = 0.2)
+
+y_smooth <- customLowess(x, y, f = 0.2)  # Apply LOWESS with 20% span
+
+# Plot results
+plot(x, y, main = "LOWESS Smoothing", xlab = "x", ylab = "y", pch = 16, col = "blue")
+lines(x, y_smooth, col = "red", lwd = 2)  # Smoothed curve
+lines(x, sin(x / 10), col = "green", lwd = 2, lty = 2)  # True function
+legend("topright", legend = c("Noisy Data", "Smoothed LOWESS", "True Function"),
+       col = c("blue", "red", "green"), pch = c(16, NA, NA), lty = c(NA, 1, 2))
+
+```
+
+## Question 3
+
+### **Compare with R’s Built-in `lowess()`:**
+
+```{r}
+# Set seed for reproducibility
+set.seed(1)
+
+# Generate x and noisy y values
+x <- seq(1, 100, by = 1)
+y <- sin(x / 10) + rnorm(length(x), mean = 0, sd = 0.2)
+
+# Apply custom LOWESS function
+y_smooth_custom <- customLowess(x, y, f = 0.2)
+
+# Apply built-in lowess function with f = 0.2 and iter = 0
+lowess_result <- lowess(x, y, f = 0.2, iter = 0)
+
+# Plot original noisy data
+plot(x, y, main = "Comparison: Custom LOWESS vs Built-in lowess()", xlab = "x", ylab = "y",
+     pch = 16, col = "blue")
+
+# Add custom LOWESS curve
+lines(x, y_smooth_custom, col = "red", lwd = 2)
+
+# Add built-in LOWESS curve
+lines(lowess_result, col = "green", lwd = 2, lty = 2)
+
+# Add true function for reference
+lines(x, sin(x / 10), col = "black", lwd = 2, lty = 3)
+
+# Add legend
+legend("topright", legend = c("Noisy Data", "Custom LOWESS", "Built-in lowess", "True Function"),
+       col = c("blue", "red", "green", "black"), pch = c(16, NA, NA, NA), 
+       lty = c(NA, 1, 2, 3), lwd = c(NA, 2, 2, 2))
+
+```
