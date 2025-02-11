@@ -1,0 +1,73 @@
+---
+title: "Prac 1"
+format: html
+editor: visual
+---
+
+# Practical 1
+
+## Question 1
+
+### Find all rows in “airquality” that have missing values
+
+```{r}
+missing <- airquality[rowSums(is.na(airquality)) >0, ]
+
+missing
+```
+
+## Question 2
+
+### Ozone Summary Statistics
+
+```{r}
+mean(airquality$Ozone, na.rm = TRUE)
+
+sd(airquality$Ozone, na.rm = TRUE)
+
+min(airquality$Ozone, na.rm = TRUE)
+
+max(airquality$Ozone, na.rm = TRUE)
+```
+
+### Temperature Summary Statistics
+
+```{r}
+mean(airquality$Temp, na.rm = TRUE)
+
+sd(airquality$Temp, na.rm = TRUE)
+
+min(airquality$Temp, na.rm = TRUE)
+
+max(airquality$Temp, na.rm = TRUE)
+```
+
+## Question 3
+
+### Response Variable (y)
+
+```{r}
+Y <- cars$dist
+```
+
+### Design Matrix (x)
+
+```{r}
+X <- cbind(1, cars$speed)
+```
+
+### Parameter Estimates
+
+```{r}
+b_hat <- solve( t(X) %*% (X) ) %*% t(X) %*% Y
+
+b_hat
+```
+
+## Question 4
+
+### Linear regression model using lm()
+
+```{r}
+lm(Y ~ cars$speed)
+```
