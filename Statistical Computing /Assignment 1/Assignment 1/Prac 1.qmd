@@ -1,8 +1,8 @@
 ---
 title: "Prac 1"
-format: html
-editor: visual
 ---
+
+# Prac 1
 
 # Practical 1
 
@@ -22,11 +22,17 @@ missing
 
 ```{r}
 mean(airquality$Ozone, na.rm = TRUE)
+```
 
+```{r}
 sd(airquality$Ozone, na.rm = TRUE)
+```
 
+```{r}
 min(airquality$Ozone, na.rm = TRUE)
+```
 
+```{r}
 max(airquality$Ozone, na.rm = TRUE)
 ```
 
@@ -34,11 +40,17 @@ max(airquality$Ozone, na.rm = TRUE)
 
 ```{r}
 mean(airquality$Temp, na.rm = TRUE)
+```
 
+```{r}
 sd(airquality$Temp, na.rm = TRUE)
+```
 
+```{r}
 min(airquality$Temp, na.rm = TRUE)
+```
 
+```{r}
 max(airquality$Temp, na.rm = TRUE)
 ```
 

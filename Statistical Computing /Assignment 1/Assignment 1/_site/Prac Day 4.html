@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Practical Day 4</title>
+<title>Prac Day 4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,29 +57,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="Practical Day 4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Practical Day 4_files/libs/quarto-html/quarto.js"></script>
-<script src="Practical Day 4_files/libs/quarto-html/popper.min.js"></script>
-<script src="Practical Day 4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Practical Day 4_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Practical Day 4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Practical Day 4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="Practical Day 4_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Practical Day 4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Practical Day 4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
 </head>
 
-<body class="fullcontent">
+<body class="floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#practical-day-4" id="toc-practical-day-4" class="nav-link active" data-scroll-target="#practical-day-4">Practical Day 4</a></li>
+  <li><a href="#practical-day-4-1" id="toc-practical-day-4-1" class="nav-link" data-scroll-target="#practical-day-4-1">Practical Day 4</a>
+  <ul class="collapse">
+  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set up</a></li>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#display-the-flights-dataset-in-an-alternative-format-to-simply-printing-it-i.e.-running-flights." id="toc-display-the-flights-dataset-in-an-alternative-format-to-simply-printing-it-i.e.-running-flights." class="nav-link" data-scroll-target="#display-the-flights-dataset-in-an-alternative-format-to-simply-printing-it-i.e.-running-flights.">Display the&nbsp;<code>flights</code>&nbsp;dataset in an alternative format to simply printing it (i.e.&nbsp;running&nbsp;<code>flights</code>).</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#rewrite-this-code-using-dplyr-and-the-pipe" id="toc-rewrite-this-code-using-dplyr-and-the-pipe" class="nav-link" data-scroll-target="#rewrite-this-code-using-dplyr-and-the-pipe">Rewrite this code using&nbsp;<code>dplyr</code>&nbsp;and the pipe:</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
+  <ul class="collapse">
+  <li><a href="#explain-why-the-standard-deviation-is-na-for-one-carrier-and-why-it-is-0-for-others.-demonstrate-your-answer-using-code." id="toc-explain-why-the-standard-deviation-is-na-for-one-carrier-and-why-it-is-0-for-others.-demonstrate-your-answer-using-code." class="nav-link" data-scroll-target="#explain-why-the-standard-deviation-is-na-for-one-carrier-and-why-it-is-0-for-others.-demonstrate-your-answer-using-code.">Explain why the standard deviation is&nbsp;<code>NA</code>&nbsp;for one carrier, and why it is&nbsp;<code>0</code>&nbsp;for others. Demonstrate your answer using code.</a></li>
+  </ul></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a>
+  <ul class="collapse">
+  <li><a href="#using-tidyr-and-dplyr-where-appropriate-construct-a-dataframe-where-the-carriers-are-along-the-columns-and-the-rows-are-the-average-departure-delay-dep_delay-flown-by-each-carrier-carrier-in-each-month." id="toc-using-tidyr-and-dplyr-where-appropriate-construct-a-dataframe-where-the-carriers-are-along-the-columns-and-the-rows-are-the-average-departure-delay-dep_delay-flown-by-each-carrier-carrier-in-each-month." class="nav-link" data-scroll-target="#using-tidyr-and-dplyr-where-appropriate-construct-a-dataframe-where-the-carriers-are-along-the-columns-and-the-rows-are-the-average-departure-delay-dep_delay-flown-by-each-carrier-carrier-in-each-month.">Using &nbsp;<code>tidyr</code>&nbsp;and&nbsp;<code>dplyr</code>&nbsp;where appropriate, construct a dataframe where the carriers are along the columns, and the rows are the average departure delay (<code>dep_delay</code>) flown by each carrier (<code>carrier</code>) in each month.</a></li>
+  </ul></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a>
+  <ul class="collapse">
+  <li><a href="#calculate-the-proportion-of-flights-that-were-delayed-dep_delay-greater-than-0-but-arrived-on-or-before-time-arr_delay-less-than-or-equal-to-0." id="toc-calculate-the-proportion-of-flights-that-were-delayed-dep_delay-greater-than-0-but-arrived-on-or-before-time-arr_delay-less-than-or-equal-to-0." class="nav-link" data-scroll-target="#calculate-the-proportion-of-flights-that-were-delayed-dep_delay-greater-than-0-but-arrived-on-or-before-time-arr_delay-less-than-or-equal-to-0.">Calculate the proportion of flights that were delayed (<code>dep_delay</code>&nbsp;greater than 0) but arrived on or before time (<code>arr_delay</code>&nbsp;less than or equal to 0).</a></li>
+  </ul></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a>
+  <ul class="collapse">
+  <li><a href="#using-the-airlines-and-flights-datasets-do-the-following-showing-the-output-from-each-step" id="toc-using-the-airlines-and-flights-datasets-do-the-following-showing-the-output-from-each-step" class="nav-link" data-scroll-target="#using-the-airlines-and-flights-datasets-do-the-following-showing-the-output-from-each-step">Using the&nbsp;<code>airlines</code>&nbsp;and&nbsp;<code>flights</code>&nbsp;datasets, do the following, showing the output from each step:</a></li>
+  </ul></li>
+  <li><a href="#question-7" id="toc-question-7" class="nav-link" data-scroll-target="#question-7">Question 7</a>
+  <ul class="collapse">
+  <li><a href="#identify-all-columns-with-missing-entries-typos-and-any-other-inconsistencies-in-the-dataset-below-load-it-just-by-running-the-code-created-using-dput-command-fyi" id="toc-identify-all-columns-with-missing-entries-typos-and-any-other-inconsistencies-in-the-dataset-below-load-it-just-by-running-the-code-created-using-dput-command-fyi" class="nav-link" data-scroll-target="#identify-all-columns-with-missing-entries-typos-and-any-other-inconsistencies-in-the-dataset-below-load-it-just-by-running-the-code-created-using-dput-command-fyi">Identify all columns with missing entries, typos and any other inconsistencies in the dataset below (load it just by running the code; created using&nbsp;<code>dput</code>&nbsp;command, FYI):</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Practical Day 4</h1>
+<h1 class="title">Prac Day 4</h1>
 </div>
 
 
@@ -95,6 +168,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <section id="practical-day-4" class="level1">
+<h1>Practical Day 4</h1>
+</section>
+<section id="practical-day-4-1" class="level1">
 <h1>Practical Day 4</h1>
 <section id="set-up" class="level2">
 <h2 class="anchored" data-anchor-id="set-up">Set up</h2>
@@ -116,6 +192,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load nycflights13 for flight data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"nycflights13"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"nycflights13"</span>)</span>
@@ -126,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
 <section id="display-the-flights-dataset-in-an-alternative-format-to-simply-printing-it-i.e.-running-flights." class="level3">
-<h3 class="anchored" data-anchor-id="display-the-flights-dataset-in-an-alternative-format-to-simply-printing-it-i.e.-running-flights.">Display the <code>flights</code>&nbsp;dataset in an alternative format to simply printing it (i.e.&nbsp;running&nbsp;<code>flights</code>).</h3>
+<h3 class="anchored" data-anchor-id="display-the-flights-dataset-in-an-alternative-format-to-simply-printing-it-i.e.-running-flights.">Display the&nbsp;<code>flights</code>&nbsp;dataset in an alternative format to simply printing it (i.e.&nbsp;running&nbsp;<code>flights</code>).</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -155,6 +233,8 @@ $ hour           &lt;dbl&gt; 5, 5, 5, 5, 6, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 
 $ minute         &lt;dbl&gt; 15, 29, 40, 45, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 0…
 $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-01 0…</code></pre>
 </div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flights)      <span class="co"># Shows the first few rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 19
@@ -170,6 +250,8 @@ $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-
 #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 </div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(flights)   <span class="co"># Summary statistics</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      year          month             day           dep_time    sched_dep_time
@@ -491,6 +573,8 @@ $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-
 <pre><code>height 
      2 </code></pre>
 </div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify potential typos in categorical columns</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>check_typos <span class="ot">&lt;-</span> <span class="cf">function</span>(column) {</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.character</span>(column)) {</span>
@@ -517,6 +601,8 @@ $gender
 $disease_status
 [1] "diseased" "healthy"  "Healthy" </code></pre>
 </div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for inconsistencies</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>gender[data<span class="sc">$</span>gender <span class="sc">==</span> <span class="st">"femal"</span>] <span class="ot">&lt;-</span> <span class="st">"female"</span>  <span class="co"># Fix typo</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>disease_status[data<span class="sc">$</span>disease_status <span class="sc">==</span> <span class="st">"Healthy"</span>] <span class="ot">&lt;-</span> <span class="st">"healthy"</span>  <span class="co"># Standardize</span></span>
@@ -547,12 +633,13 @@ $Unique_Categorical_Values$disease_status
 [1] "diseased" "healthy"  "Healthy" </code></pre>
 </div>
 </div>
+
+
 </section>
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

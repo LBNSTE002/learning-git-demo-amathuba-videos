@@ -1,8 +1,9 @@
 ---
-title: "Practical Day 4"
+title: "Prac Day 4"
 format: html
-editor: visual
 ---
+
+# Practical Day 4
 
 # Practical Day 4
 
@@ -14,25 +15,32 @@ if (!requireNamespace("tidyverse", quietly = TRUE)) {
   install.packages("tidyverse")
 }
 library(tidyverse)
+```
 
+```{r}
 # Install and load nycflights13 for flight data
 if (!requireNamespace("nycflights13", quietly = TRUE)) {
   install.packages("nycflights13")
 }
 library(nycflights13)
-
 ```
 
 ## Question 1
 
-### Display the `flights` dataset in an alternative format to simply printing it (i.e. running `flights`).
+### Display the `flights` dataset in an alternative format to simply printing it (i.e. running `flights`).
 
 ```{r}
 library(nycflights13)
 library(dplyr)
 
 glimpse(flights)   # Provides a compact overview
+```
+
+```{r}
 head(flights)      # Shows the first few rows
+```
+
+```{r}
 summary(flights)   # Summary statistics
 ```
 
@@ -156,7 +164,6 @@ greatest_diff_route
 ### Identify all columns with missing entries, typos and any other inconsistencies in the dataset below (load it just by running the code; created using `dput` command, FYI):
 
 ```{r}
-
 # Load the dataset
 data <- structure(list(
   id = c("id_1", "id_2", "id_3", "id_4", "id_5", "id_6", "id_7", 
@@ -197,7 +204,9 @@ data <- structure(list(
 # Find missing values
 missing_values <- sapply(data, function(x) sum(is.na(x)))
 missing_values[missing_values > 0]
+```
 
+```{r}
 # Identify potential typos in categorical columns
 check_typos <- function(column) {
   if (is.character(column)) {
@@ -209,7 +218,9 @@ check_typos <- function(column) {
 typos <- sapply(data, check_typos)
 typos <- typos[!sapply(typos, is.null)]
 typos
+```
 
+```{r}
 # Check for inconsistencies
 data$gender[data$gender == "femal"] <- "female"  # Fix typo
 data$disease_status[data$disease_status == "Healthy"] <- "healthy"  # Standardize
@@ -219,5 +230,4 @@ list(
   Missing_Values = missing_values[missing_values > 0],
   Unique_Categorical_Values = typos
 )
-
 ```

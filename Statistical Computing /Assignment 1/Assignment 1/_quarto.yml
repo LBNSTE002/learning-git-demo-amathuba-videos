@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: _site 
+  render:
+  - Prac 1.qmd
+  - Prac 2.qmd
+  - Prac Day 4.qmd
+
+book:
+  title: Statistical Computing
+  sidebar:
+    border: true
+    background: light
+    position: right
+  navbar:
+    search: true
+    background: light
+  chapters:
+  - Prac 1.qmd
+  - Prac 2.qmd
+  - Prac Day 4.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: left
