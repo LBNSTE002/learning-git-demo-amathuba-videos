@@ -1,0 +1,132 @@
+---
+title: "Group 17"
+subtitle: "Continuous Assessment 1"
+author: "LBNSTE002, AZRRAP001, RKHRIT001"
+date: "2025-02-24"
+format: pdf
+editor: visual
+execute: 
+  echo: FALSE
+  message: FALSE
+  warning: FALSE
+---
+
+## Question 1:
+
+```{r}
+
+library(dplyr)
+
+# Load the dataset
+data <- read.csv("CA1.csv")
+
+# Compute sample means for each time period
+mean_vectors <- data |> 
+  group_by(TimePeriod) |> 
+  summarise(across(MaxBreadth:NasHeight, mean))
+
+# Display the mean vectors
+print(mean_vectors)
+
+```
+
+## Question 2:
+
+```{r}
+
+# Load necessary libraries
+library(dplyr)
+library(corrplot)
+
+# Load the dataset correctly
+CA1 <- read.csv("CA1.csv") # Ensure this matches the actual file name
+
+# Period One
+period_one <- CA1 |> filter(TimePeriod == 1)
+R1 <- cor(period_one[,1:4])
+corrplot(R1, method = "number")
+mtext("Time Period 1 Correlation Matrix", side = 2, line = 1, cex = 1, las = 3)
+
+# Period Two
+period_two <- CA1 |> filter(TimePeriod == 2)
+R2 <- cor(period_two[,1:4])
+corrplot(R2, method = "number")
+mtext("Time Period 2 Correlation Matrix", side = 2, line = 1, cex = 1, las = 3)
+
+# Period Three
+period_three <- CA1 |> filter(TimePeriod == 3)
+R3 <- cor(period_three[,1:4])
+corrplot(R3, method = "number")
+mtext("Time Period 3 Correlation Matrix", side = 2, line = 1, cex = 1, las = 3)
+
+# Period Four
+period_four <- CA1 |> filter(TimePeriod == 4)
+R4 <- cor(period_four[,1:4])
+corrplot(R4, method = "number")
+mtext("Time Period 4 Correlation Matrix", side = 2, line = 1, cex = 1, las = 3)
+
+# Period Five
+period_five <- CA1 |> filter(TimePeriod == 5)
+R5 <- cor(period_five[,1:4])
+corrplot(R5, method = "number")
+mtext("Time Period 5 Correlation Matrix", side = 2, line = 1, cex = 1, las = 3)
+
+# Adjust the layout to show multiple plots (optional)
+par(mfrow = c(3,2))
+
+```
+
+###### Over time, the correlation between Maximal Breadth (X1) and Basialveolar Length (X3) weakened, indicating a shift in skull proportions. The relationship between Basibregmatic Height (X2) and Nasal Height (X4) strengthened in later periods, suggesting structural changes. Additionally, some previously positive correlations turned negative, particularly between Basibregmatic Height (X2) and Maximal Breadth (X1) in later periods, showing evolving skull shape patterns.
+
+## Question 3:
+
+```{r}
+# Compute deviation vectors for X1 (MaxBreadth) and X3 (BasLength) in Period 1
+period_1_data <- subset(data, TimePeriod == 1)[, c("MaxBreadth", "BasLength")]
+deviation_X1 <- period_1_data$MaxBreadth - mean(period_1_data$MaxBreadth)
+deviation_X3 <- period_1_data$BasLength - mean(period_1_data$BasLength)
+
+dot_product <- sum(deviation_X1 * deviation_X3)
+norm_X1 <- sqrt(sum(deviation_X1^2))
+norm_X3 <- sqrt(sum(deviation_X3^2))
+angle_radians <- acos(dot_product / (norm_X1 * norm_X3))
+angle_degrees <- angle_radians * (180 / pi)
+print(paste("Angle between deviation vectors:", angle_degrees, "degrees"))
+print(paste("Angle between deviation vectors:", angle_radians, "radians"))
+```
+
+###### The angle between the deviation vectors for MaxBreadth (X1) and BasLength (X3) in Period 1 is approximately 89.14, which is close to 90. This is expected because the correlation coefficient between these two variables in Period 1, as seen in the correlation matrix, is close to zero. A near-zero correlation indicates that the two variables are largely uncorrelated, meaning their deviation vectors are almost orthogonal, leading to an angle close to 90.
+
+## Question 4
+
+```{r}
+# Calculate Yi for all time periods Yi = 3 * NasHeight - MaxBreadth
+data <- data %>%
+  mutate(Y = 3 * NasHeight - MaxBreadth)
+
+# CHECK this with linear comb.
+(y_means <- data %>%
+  group_by(TimePeriod) %>%
+  summarise(Y_mean = mean(Y)))
+
+# Calculate the covariance matrix for Y
+y_cov_matrix <- cov(data %>% select(Y))
+
+#use b as linear combination 
+b <- c(-1, 0, 0, 3) 
+
+b <- c(-1, 0, 0, 3)
+mean_t <- t(mean_vectors[1:5,2:5])
+y_i <- b%*%(mean_t)
+
+#Y_i
+y1<- b%*%t(period_one[,1:4])
+y2<- b%*%t(period_two[,1:4])
+y3<- b%*%t(period_three[,1:4])
+y4<- b%*%t(period_four[,1:4])
+y5<- b%*%t(period_five[,1:4])
+
+#Y = Y_i
+Y <- matrix(c(y1, y2, y3, y4, y5), nrow = 30)
+cov(Y)
+```

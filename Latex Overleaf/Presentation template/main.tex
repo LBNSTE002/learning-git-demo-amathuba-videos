@@ -1,0 +1,30 @@
+\documentclass[aspectratio=43]{beamer}
+\usepackage[english]{babel}
+\setlength{\parskip}{\baselineskip} 
+\input{Chapters/preamble} % to edit any formatting aspects of the document you need to edit this preamble document
+
+\title[Presentation title]{Presentation title} % the bit in square brackets goes in the bar at the bottom of the slides
+\author[G. Carmichael]{Grace Carmichael}
+\institute[UCT]{
+    Department of Statistical Sciences%
+    \\
+    University of Cape Town
+} 
+\titlegraphic{
+\includegraphics[width=2cm]{logo.png}
+}
+
+\date{2025}
+
+
+\begin{document}
+
+    \frame{\titlepage} % This adds the title page to your presentation
+    
+    \begin{frame}{Outline} % you can remove this frame if you don't want the outline slide included
+        \tableofcontents
+    \end{frame}
+    
+    \input{Chapters/Introduction} 
+
+\end{document}

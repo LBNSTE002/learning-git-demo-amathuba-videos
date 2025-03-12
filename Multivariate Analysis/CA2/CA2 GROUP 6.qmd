@@ -1,0 +1,89 @@
+---
+title: "Group 6 CA2"
+format: pdf
+editor: visual
+echo: false
+warning: false
+message: false
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(tidyr)
+
+X <- read.csv("CA2.csv")
+X <- as.matrix(X)  
+
+svd_X <- svd(X)
+
+# Initialize lists to store approximations and errors
+approximations <- list()
+errors <- list()
+frobenius_norms <- numeric(12)
+
+# Compute lower-rank approximations and errors
+for (k in 1:12) {
+  U_k <- svd_X$u[, 1:k, drop = FALSE]  # Ensure correct matrix dimensions
+  D_k <- diag(svd_X$d[1:k], nrow = k, ncol = k)  # Make it square
+  V_k <- svd_X$v[, 1:k, drop = FALSE]
+  
+  X_k <- U_k %*% D_k %*% t(V_k)  # Compute rank-k approximation
+  approximations[[k]] <- X_k
+  errors[[k]] <- X - X_k
+  frobenius_norms[k] <- sqrt(sum(errors[[k]]^2))
+}
+```
+
+### Question 1:
+
+```{r}
+# 1. Mean vector of the rank 4 approximation error
+delta_4_mean <- round(colMeans(errors[[4]]),2)
+print("Mean Vector of Rank 4 Approximation Error:")
+print(delta_4_mean)
+```
+
+### Question 2:
+
+```{r}
+# 2. Compare correlation matrices
+cor_X <- round(cor(X),2)
+cor_X2 <- round(cor(approximations[[2]]),2)
+print("Correlation Matrix of X:")
+print(cor_X)
+print("Correlation Matrix of X_2:")
+print(cor_X2)
+```
+
+###### Interpretation:
+
+###### The rank-2 approximation exaggerates correlations, preserving major trends with values closer to -1 and 1. This suggests that the first two singular components capture the dominant variance, but finer variance details are lost (distorts smaller correlations), leading to over-simplified relationships.
+
+### Question 3:
+
+```{r}
+# 3. Plot Frobenius norm as a function of k
+plot(1:12, frobenius_norms, type="b", pch=19, col="blue", 
+     xlab="Rank k", ylab="Frobenius Norm", 
+     main="Frobenius Norm vs Rank")
+```
+
+###### Interpretation:
+
+###### The Frobenius norm decreases as K increases, indicating that higher-rank approximations provide better approximations of X. The error reduction is most significant for lower values of K (e.g., from K=1 to K=6), suggesting that the first few singular components capture most of the data's variance. After K=8, the reduction in the Frobenius norm slows down. This means additional components contribute less to improving the approximation. The norm approaches zero at K=12, confirming that the full-rank approximation perfectly reconstructs X.
+
+### Question 4:
+
+```{r}
+# 4. Plot percentage of total variation retained
+variance_retained <- cumsum(svd_X$d^2) / sum(svd_X$d^2) * 100
+plot(1:12, variance_retained[1:12], type="b", pch=19, col="red", 
+     xlab="Rank k", ylab="Percentage Variance Retained", 
+     main="Variance Retained vs Rank")
+```
+
+###### Interpretation:
+
+###### The first few singular values capture a large proportion of the total variance. As K increases, the additional variance retained slows down and beyond K=8, additional components contribute less marginal improvement. At K=12, nearly all the variation is captured, meaning again that the full-rank matrix perfectly reconstructs X.

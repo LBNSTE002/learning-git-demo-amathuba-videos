@@ -1,0 +1,104 @@
+---
+title: "CA1 Group 17"
+format: pdf
+editor: visual
+echo: FALSE
+---
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(reshape2)
+library(corrplot)
+```
+
+```{r}
+# Load the dataset
+data <- read.csv("CA1.csv")
+```
+
+## Question 1
+
+### Compute and report the sample mean vectors for each of the five time periods.
+
+```{r}
+# Compute sample mean vectors for each time period
+mean_vectors <- aggregate(. ~ TimePeriod, data, mean)
+print("Sample Mean Vectors:")
+print(mean_vectors)
+```
+
+## Question 2
+
+### Provide a heat map of the correlation matrix for each time period and briefly interpret.
+
+```{r}
+# Generate and display heatmaps of the correlation matrices for each time period
+for (period in unique(data$TimePeriod)) {
+  subset <- subset(data, TimePeriod == period)[, -which(names(data) == "TimePeriod")]
+  correlation_matrix <- cor(subset)
+  print(paste("Correlation Matrix - Time Period", period))
+  print(correlation_matrix)
+  corrplot(correlation_matrix, method = "color", tl.cex = 0.8)
+}
+```
+
+### Are there any noticeable changes over the time periods?
+
+###### Over time, the correlation between Maximal Breadth (X1) and Basialveolar Length (X3) weakened, indicating a shift in skull proportions. The relationship between Basibregmatic Height (X2) and Nasal Height (X4) strengthened in later periods, suggesting structural changes. Additionally, some previously positive correlations turned negative, particularly between Basibregmatic Height (X2) and Maximal Breadth (X1) in later periods, showing evolving skull shape patterns.
+
+## Question 3
+
+### Calculate the angle between the deviation vectors for X1 and X3 in period 1.
+
+```{r}
+# Compute deviation vectors for X1 (MaxBreadth) and X3 (BasLength) in Period 1
+period_1_data <- subset(data, TimePeriod == 1)[, c("MaxBreadth", "BasLength")]
+deviation_X1 <- period_1_data$MaxBreadth - mean(period_1_data$MaxBreadth)
+deviation_X3 <- period_1_data$BasLength - mean(period_1_data$BasLength)
+
+dot_product <- sum(deviation_X1 * deviation_X3)
+norm_X1 <- sqrt(sum(deviation_X1^2))
+norm_X3 <- sqrt(sum(deviation_X3^2))
+angle_radians <- acos(dot_product / (norm_X1 * norm_X3))
+angle_degrees <- angle_radians * (180 / pi)
+print(paste("Angle between deviation vectors:", angle_degrees, "degrees"))
+print(paste("Angle between deviation vectors:", angle_radians, "radians"))
+```
+
+### Explain why this value is to be expected by referring to the appropriate value from question 2.
+
+###### The angle between the deviation vectors for MaxBreadth (X1) and BasLength (X3) in Period 1 is approximately 89.14, which is close to 90. This is expected because the correlation coefficient between these two variables in Period 1, as seen in the correlation matrix, is close to zero. A near-zero correlation indicates that the two variables are largely uncorrelated, meaning their deviation vectors are almost orthogonal, leading to an angle close to 90.
+
+### For a bonus mark, plot all the deviation vectors for period 1 across the first two observations.
+
+```{r}
+# Plot deviation vectors for first two observations
+plot(c(0, deviation_X1[1]), c(0, deviation_X3[1]), type = "l", col = "red", xlim = range(deviation_X1), ylim = range(deviation_X3), xlab = "Deviation of MaxBreadth (X1)", ylab = "Deviation of BasLength (X3)", main = "Deviation Vectors for Period 1")
+lines(c(0, deviation_X1[2]), c(0, deviation_X3[2]), col = "blue")
+legend("topright", legend = c("Observation 1", "Observation 2"), col = c("red", "blue"), lty = 1)
+```
+
+## Question 4
+
+### Suppose researchers are interested in the quantity Yi = 3X4 − X1 for time periods i =1, . . . , 5.
+
+### Use your answers from question 1 and an appropriate vector b to determine the sample means ¯y1, . . . , y¯5.
+
+```{r}
+Y <- 3 * data$NasHeight - data$MaxBreadth
+data$Y <- Y
+mean_Y <- aggregate(Y ~ TimePeriod, data, mean)
+print("Sample Means of Y:")
+print(mean_Y)
+```
+
+### Also give the covariance matrix of Y = \[Y1 Y2 Y3 Y4 Y5\]′.
+
+```{r}
+# Compute covariance matrix of Y
+data_Y <- reshape2::dcast(data, TimePeriod ~ Y, value.var = "Y")
+cov_Y <- cov(data_Y[,-1], use = "complete.obs")
+print("Covariance Matrix of Y:")
+print(cov_Y)
+```
